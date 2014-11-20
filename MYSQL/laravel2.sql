@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 20, 2014 at 05:38 PM
+-- Generation Time: Nov 20, 2014 at 06:55 PM
 -- Server version: 5.5.40-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.5
 
@@ -129,15 +129,14 @@ CREATE TABLE IF NOT EXISTS `offers_taken` (
   PRIMARY KEY (`ot_id`),
   KEY `user_id` (`user_id`),
   KEY `offers_taken_ibfk_2` (`offer_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `offers_taken`
 --
 
 INSERT INTO `offers_taken` (`ot_id`, `user_id`, `offer_id`, `starting_at`, `ending_at`, `taken_at`) VALUES
-(5, 3, 2, '2014-11-24 11:00:00', '2014-11-24 16:00:00', '2014-11-20 16:44:16'),
-(7, 5, 2, '2014-11-24 11:00:00', '2014-11-24 16:00:00', '2014-11-20 16:57:47');
+(10, 5, 3, '2014-11-25 11:00:00', '2014-11-25 20:30:00', '2014-11-20 18:53:58');
 
 -- --------------------------------------------------------
 
@@ -268,7 +267,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `password`, `time_of_meal`, `budget`, `location_id`, `no_of_guests`, `created_at`, `updated_at`, `remember_token`) VALUES
 (3, 'Baljeet', 'Bhinder', 'baljeet.techarays@gmail.com', '$2y$10$kESNsFLPtNOBpdNeIZvDSO9YEYUL6y20MxJt3uPMWmw00GXApdDEe', '11:00:00', 25, 1, 2, '2014-11-19 01:15:00', '2014-11-20 05:48:46', 'bdGX2qi1d05105J6sNNC50kcakOkb8OFemqIj0fUmXBNhUOtpdj8EjoRUMml'),
 (4, 'Amritpal', 'Singh', 'amit@singh.com', '$2y$10$kESNsFLPtNOBpdNeIZvDSO9YEYUL6y20MxJt3uPMWmw00GXApdDEe', '11:00:00', 50, 2, 2, '2014-11-19 04:37:29', '2014-11-19 07:28:52', '8tbZIGZKNgZXsrSTiZu4eCm3qWnJu4Cy6V0jWDwXItEPVcNm31WQzXGdM8Bt'),
-(5, 'Gagan', 'Chabbra', 'gagan@chabbra.com', '$2y$10$PzdL6HnXDhCmHkqVonjVQenK9jWmhYRR1HbGeoEamDFeedLBgm9tC', '11:00:00', 25, 1, 2, '2014-11-20 05:49:16', '2014-11-20 05:49:16', '');
+(5, 'Gagan', 'Chabbra', 'gagan@chabbra.com', '$2y$10$PzdL6HnXDhCmHkqVonjVQenK9jWmhYRR1HbGeoEamDFeedLBgm9tC', '11:00:00', 50, 1, 2, '2014-11-20 05:49:16', '2014-11-20 05:49:16', '');
 
 --
 -- Constraints for dumped tables

@@ -183,16 +183,14 @@ class UsersController extends \BaseController {
 				return Redirect::to('users/dashboard')->with('message', 'Offer Successfully taken');
 	 	    }
 			else{
-				return Redirect::to('users/dashboard')->with('message', 'Error occured!');
+				return Redirect::to('users/dashboard')->with('message', 'Your offer timings are conflicting with an existing offer at same location and resturant try choosing another offer');
 			}
 	   }
 
 	public function goodtogo($resturant_offer_id = null){
 		if($resturant_offer_id){
 			$user_id=Auth::user()->id;
-			//echo '<br>resdturant odffer	 id'.$resturant_offer_id; 
 			$ifAnyoffer = DB::select('select * from offers_taken where user_id='.$user_id);
-			echo '<pre>';			
 			//there is not even an order to conflict
 			if(empty($ifAnyoffer)){
 				die('good to go');
@@ -228,22 +226,40 @@ class UsersController extends \BaseController {
 					echo $starting_at = $nextDate. ' '.$tmpStart;  
 			/* starting at calculate ends */
 			
-			//die(print_r(Input::all()));
-				$req = DB::select("select offers_taken.ot_id,
-					resturants_offers.location_id, 
-					resturants_offers.resturant_id 
-					from offers_taken
-					inner join resturants_offers on resturants_offers.idresturants_offers =offers_taken.offer_id
-					where offers_taken.user_id=".Auth::user()->id
-					);	
-				print_r($req);
-					die();
-				die();
-				foreach ($ifAnyoffer as $singleOffer) {
-					print_r($singleOffer);
+/*Custom*/
+$conf = DB::select("select idresturants_offers,location_id,resturant_id from resturants_offers where idresturants_offers=".Input::get('resturant_offer_id'));
+$loc_id = $conf[0]->location_id;
+$rest_id = $conf[0]->resturant_id;
+/*Custom Ends*/
+
+
+				$confliction = DB::select("select 
+					offers_taken.*,
+					resturants_offers.*,
+					offers.offername,
+					resturants.r_id,
+					locations.loc_id
+					from offers_taken 
+					inner join resturants_offers on resturants_offers.idresturants_offers=offers_taken.offer_id 
+					inner join offers on offers.idoffers=resturants_offers.offer_id
+					inner join resturants on resturants.r_id=resturants_offers.resturant_id 
+					inner join locations on locations.loc_id = resturants_offers.location_id
+					where  
+					offers_taken.ending_at>'$starting_at' 
+					and resturants_offers.location_id=$loc_id 
+					and resturants_offers.resturant_id=$rest_id 
+					and user_id =".Auth::user()->id ." 
+					order by resturants_offers.resturant_id DESC"
+				);
+				if(!empty($confliction)){
+					return  false;
 				}
+				else{
+					return true;
+				}
+/*custom finding ends*/
+				
 			}
-			die();
 			return true;
 		}
 		else{
