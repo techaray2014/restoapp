@@ -193,7 +193,7 @@ class UsersController extends \BaseController {
 			$ifAnyoffer = DB::select('select * from offers_taken where user_id='.$user_id);
 			//there is not even an order to conflict
 			if(empty($ifAnyoffer)){
-				die('good to go');
+				//die('good to go');
 				return true;
 			}
 			//there may be an confliction go chekc it!
